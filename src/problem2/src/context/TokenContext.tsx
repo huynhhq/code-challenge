@@ -14,16 +14,13 @@ import type { Token, TokenPriceData } from "../types";
 // Constant
 import { CONSTANTS } from "../constants";
 
-// Data
-import { TOKEN_NAMES } from "../data/tokenData";
-import { TOKEN_PRICES } from "../data/tokenPrices";
-
 interface TokenContextValue {
   tokens: Token[];
   isLoading: boolean;
   error: string | null;
   searchTokens: (query: string) => Token[];
   getToken: (currency: string) => Token | undefined;
+  refetchPrices: () => Promise<void>;
 }
 
 const TokenContext = createContext<TokenContextValue | null>(null);
@@ -56,7 +53,7 @@ function buildTokenList(priceMap: Map<string, TokenPriceData>): Token[] {
     if (priceData.price > 0) {
       tokens.push({
         currency,
-        name: TOKEN_NAMES[currency] || currency,
+        name: currency,
         image: `${CONSTANTS.TOKEN_ICONS_BASE_URL}/${currency}.svg`,
         price: priceData.price,
         date: priceData.date,
@@ -76,26 +73,36 @@ export function TokenProvider({ children }: TokenProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadTokens = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
+  const loadTokens = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
 
-        const priceMap = buildPriceMap(TOKEN_PRICES);
-        const tokenList = buildTokenList(priceMap);
+      // Fetch real-time price data from API
+      const response = await fetch(CONSTANTS.PRICES_API_URL);
 
-        setTokens(tokenList);
-      } catch (err) {
-        console.error("Failed to load tokens:", err);
-        setError("Failed to load token data");
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch prices: ${response.statusText}`);
       }
-    };
 
-    loadTokens();
+      const pricesData: TokenPriceData[] = await response.json();
+      const priceMap = buildPriceMap(pricesData);
+      const tokenList = buildTokenList(priceMap);
+
+      setTokens(tokenList);
+    } catch (err) {
+      console.error("Failed to load tokens:", err);
+      setError(
+        err instanceof Error ? err.message : "Failed to load token data"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadTokens();
+  }, [loadTokens]);
 
   const searchTokens = useCallback(
     (query: string): Token[] => {
@@ -127,8 +134,9 @@ export function TokenProvider({ children }: TokenProviderProps) {
       error,
       searchTokens,
       getToken,
+      refetchPrices: loadTokens,
     }),
-    [tokens, isLoading, error, searchTokens, getToken]
+    [tokens, isLoading, error, searchTokens, getToken, loadTokens]
   );
 
   return (
