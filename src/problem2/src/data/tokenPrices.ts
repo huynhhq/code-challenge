@@ -35,7 +35,6 @@ export const TOKEN_PRICES: TokenPriceData[] = [
   { currency: 'ZIL', date: '2023-08-29T07:10:50.000Z', price: 0.01651813559322034 },
 ];
 
-// De-duplicate prices (keep most recent by date for each currency)
 export function getDeduplicatedPrices(): Map<string, TokenPriceData> {
   const priceMap = new Map<string, TokenPriceData>();
 
