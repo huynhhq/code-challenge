@@ -78,7 +78,6 @@ export function TokenProvider({ children }: TokenProviderProps) {
       setIsLoading(true);
       setError(null);
 
-      // Fetch real-time price data from API
       const response = await fetch(CONSTANTS.PRICES_API_URL);
 
       if (!response.ok) {
