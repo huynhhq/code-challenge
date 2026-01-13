@@ -1,0 +1,78 @@
+// Token icons available in the Switcheo token-icons repository
+// Only including tokens that have price data in our mock prices
+export const AVAILABLE_TOKENS = [
+  'BLUR',
+  'bNEO',
+  'BUSD',
+  'USD',
+  'ETH',
+  'GMX',
+  'STEVMOS',
+  'LUNA',
+  'RATOM',
+  'STRD',
+  'EVMOS',
+  'IBCX',
+  'IRIS',
+  'ampLUNA',
+  'KUJI',
+  'STOSMO',
+  'USDC',
+  'axlUSDC',
+  'ATOM',
+  'STATOM',
+  'OSMO',
+  'rSWTH',
+  'STLUNA',
+  'LSI',
+  'OKB',
+  'OKT',
+  'SWTH',
+  'USC',
+  'WBTC',
+  'wstETH',
+  'YieldUSD',
+  'ZIL',
+] as const;
+
+export type AvailableToken = (typeof AVAILABLE_TOKENS)[number];
+
+// Token full names
+export const TOKEN_NAMES: Record<string, string> = {
+  BLUR: 'Blur',
+  bNEO: 'bNEO',
+  BUSD: 'Binance USD',
+  USD: 'US Dollar',
+  ETH: 'Ethereum',
+  GMX: 'GMX',
+  STEVMOS: 'Stride Evmos',
+  LUNA: 'Luna Classic',
+  RATOM: 'pSTAKE ATOM',
+  STRD: 'Stride',
+  EVMOS: 'Evmos',
+  IBCX: 'Interchain Index',
+  IRIS: 'IRISnet',
+  ampLUNA: 'Amplified Luna',
+  KUJI: 'Kujira',
+  STOSMO: 'Stride Osmosis',
+  USDC: 'USD Coin',
+  axlUSDC: 'Axelar USDC',
+  ATOM: 'Cosmos',
+  STATOM: 'Stride Atom',
+  OSMO: 'Osmosis',
+  rSWTH: 'Staked SWTH',
+  STLUNA: 'Stride Luna',
+  LSI: 'Liquid Staking Index',
+  OKB: 'OKB',
+  OKT: 'OKC Token',
+  SWTH: 'Switcheo',
+  USC: 'Carbon USD',
+  WBTC: 'Wrapped Bitcoin',
+  wstETH: 'Wrapped stETH',
+  YieldUSD: 'Yield USD',
+  ZIL: 'Zilliqa',
+};
+
+export function getTokenName(symbol: string): string {
+  return TOKEN_NAMES[symbol] || symbol;
+}
