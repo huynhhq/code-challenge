@@ -1,0 +1,213 @@
+.container {
+  position: relative;
+}
+
+/* Trigger Button */
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 140px;
+}
+
+.trigger:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-focus);
+}
+
+.trigger[aria-expanded="true"] {
+  border-color: var(--color-border-focus);
+}
+
+.tokenIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--color-bg-tertiary);
+}
+
+.tokenInfo {
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+}
+
+.tokenSymbol {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tokenName {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.placeholder {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-tertiary);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  right: 0;
+  width: 280px;
+  max-height: 360px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-dropdown);
+  overflow: hidden;
+  animation: slideUp var(--transition-fast);
+}
+
+/* Search */
+.search {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+.searchWrapper:focus-within {
+  border-color: var(--color-border-focus);
+}
+
+.searchIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Token List */
+.list {
+  max-height: 280px;
+  overflow-y: auto;
+  list-style: none;
+  padding: var(--space-sm);
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.listItem:hover,
+.listItem:focus,
+.listItem[data-focused="true"] {
+  background: var(--color-bg-hover);
+  outline: none;
+}
+
+.listItem[data-selected="true"] {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.listItemIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--color-bg-tertiary);
+}
+
+.listItemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.listItemSymbol {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: block;
+}
+
+.listItemName {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.listItemPrice {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+/* Empty State */
+.empty {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+/* Check mark for selected item */
+.checkMark {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent-primary);
+}
